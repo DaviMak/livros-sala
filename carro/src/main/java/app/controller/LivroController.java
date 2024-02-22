@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,7 @@ public class LivroController {
 	public ResponseEntity<String> salvar(@RequestBody Livro livro){
 		try {
 			String msg = this.livroService.salvar(livro);
-			return new ResponseEntity<String>(msg, HttpStatus.CREATED);
+			return new ResponseEntity<String>(msg, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("erro", HttpStatus.BAD_REQUEST);
 		}
@@ -62,6 +63,29 @@ public class LivroController {
 			return new ResponseEntity<String>(json, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/removeById")
+	public ResponseEntity<String> removeById(@PathVariable Integer id){
+		try {
+			String msg = this.livroService.removeById(id);
+			return new ResponseEntity<String>(msg, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("/findById/{idLivro}")
+	public ResponseEntity<Livro> findById(@PathVariable long idLivro){
+		try {
+			Livro livro = this.livroService.findById(idLivro);
+			//ObjectMapper objectMapper = new ObjectMapper();
+	        //String json = objectMapper.writeValueAsString(livro);
+	        
+	        return new ResponseEntity<>(null, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
 	

@@ -6,7 +6,16 @@ public class Livro {
 	private String autor;
 	private String editora;
 	private String ano;
+	private long id;
 	
+	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	//tirar get e set para usar o lombock
 	public String getTitulo() {
 		return titulo;
 	}
